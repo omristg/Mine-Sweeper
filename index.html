@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Mine Sweeper</title>
+</head>
+
+<body onload="init()">
+    <h1>Mine Sweeper</h1>
+    <div class="level-opts-bar">
+        <span onclick="setLevel(4)">Beginner</span>
+        <span onclick="setLevel(8)">Medium</span>
+        <span onclick="setLevel(12)">Expert</span>
+    </div>
+    <div class="info-bar">
+        <span class="life"></span>
+        <span onclick="resetGame()" class="status-smiley"></span>
+        <span class="timer">00:00</span>
+    </div>
+
+    <table>
+        <tbody class="board"></tbody>
+    </table>
+
+    <div class="hints" onclick="loadHint()"></div>
+
+    <div class="score"></div>
+    <div class="too-slow" onclick="toSlow()">Too slow! sorry...</div>
+
+
+    <!-- <button class="reveal-btn" onclick="revealBoard()">Reveal Board</button> -->
+
+    <div class="winners-container"></div>
+
+    <footer>Omri Steinerg &copy; Cofeerights</footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/addOns.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
