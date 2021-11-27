@@ -58,13 +58,13 @@ function displayLife() {
     }
     var elLife = document.querySelector('.life')
     elLife.innerText = strHTML;
-    renderBoard(gBoard);
 }
+
 
 function displayHints() {
     var elHint = document.querySelector('.hints');
     elHint.display = 'block'
-    
+
     var strHTML = '';
     for (var i = 0; i < gGame.hints; i++) {
         strHTML += HINT;
@@ -74,29 +74,89 @@ function displayHints() {
 
 
 function loadHint() {
+    if (!gGame.isOn) return
     if (!gGame.hints) return
     gGame.isHintOn = true;
     gGame.hints--
     displayHints();
-    // TODO: Change to all screen
     document.querySelector('.board').style.cursor = 'grabbing';
 }
 
 
-function fireHint(board, i, j) {
-    showHideNegs(board, i, j, 'reveal');
-    renderBoard(board);
-    showHideNegs(board, i, j, 'hide');
+function fireHint(rowIdx, colIdx) {
+    gGame.isOn = false;
+    showHideCell({ i: rowIdx, j: colIdx }, 'show')
+
+    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        if (i < 0 || i > gBoard.length - 1) continue
+        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+            if (j < 0 || j > gBoard.length - 1) continue
+            if (i === rowIdx && j === colIdx) continue
+            showHideCell({ i, j }, 'show')
+            renderCellsForHint({ i, j });
+        }
+    }
 
     document.querySelector('.board').style.cursor = 'grab';
-    setTimeout(shutDownHint, 1000, board);
+    setTimeout(shutDownHint, 1000, rowIdx, colIdx);
 }
 
-function shutDownHint(board) {
+
+function shutDownHint(rowIdx, colIdx) {
+    gGame.isOn = true;
     gGame.isHintOn = false;
-    renderBoard(board)
+    if (!gBoard[rowIdx][colIdx].isShown) {
+        showHideCell({ i: rowIdx, j: colIdx }, 'hide')
+    }
+
+    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        if (i < 0 || i > gBoard.length - 1) continue
+        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+            if (j < 0 || j > gBoard.length - 1) continue
+            if (i === rowIdx && j === colIdx) continue
+            if (!gBoard[i][j].isShown) {
+                showHideCell({ i, j }, 'hide')
+                renderCell({ i, j }, '');
+            }
+        }
+    }
     document.querySelector('.board').style.cursor = 'pointer';
 }
+
+
+function safeClick(elSafeClick) {
+    if (!gGame.isOn) return;
+    if (!gGame.safeClicks) return;
+    gGame.safeClicks--;
+    elSafeClick.innerHTML = `Safe Click left: ${gGame.safeClicks}`
+    var safeCells = [];
+
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            var currCell = gBoard[i][j];
+            if (!currCell.isShown && !currCell.isMine) {
+                safeCells.push({ i, j })
+            }
+        }
+    }
+    var randIdx = getRandomInt(0, safeCells.length);
+    var randSafeCell = safeCells[randIdx];
+    var elSafeCell = document.querySelector(`.cell-${randSafeCell.i}-${randSafeCell.j}`)
+    elSafeCell.classList.add('safe');
+    setTimeout(removeSafeCell, 500, elSafeCell);
+}
+
+
+function removeSafeCell(elSafeCell) {
+    elSafeCell.classList.remove('safe');
+}
+
+
+function displayFlags() {
+    var elFlagCount = document.querySelector('.flag-count')
+    elFlagCount.innerText = `${FLAG} ${gLevel.FLAGS}`
+}
+
 
 function registerScore() {
     // TODO: continue set multiple items!
@@ -108,13 +168,11 @@ function registerScore() {
     var toCheck = localStorage.getItem('winner')
     console.log(toCheck);
     renderWinners()
-
 }
 
 
 function renderWinners() {
-
-    document.querySelector('.hints').style.display = 'none';
+    document.querySelector('.lower-info-line').style.display = 'none';
     document.querySelector('.score').style.display = 'none';
 
     var elWinnersContainer = document.querySelector('.winners-container')
@@ -125,5 +183,4 @@ function renderWinners() {
     strHTML += `${currWinner}\n`
 
     elWinnersContainer.innerText += strHTML;
-
 }

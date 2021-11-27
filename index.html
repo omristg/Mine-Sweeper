@@ -26,17 +26,17 @@
         <tbody class="board"></tbody>
     </table>
 
-    <div class="hints" onclick="loadHint()"></div>
+    <div class="lower-info-line">
+        <span class="flag-count"></span>
+        <span class="hints" onclick="loadHint()"></span>
+        <span class="safe-click" onclick="safeClick(this)"> Safe Click left: 3</span>
+    </div>
 
     <div class="score"></div>
     <div class="too-slow" onclick="toSlow()">Too slow! sorry...</div>
-
-
-    <!-- <button class="reveal-btn" onclick="revealBoard()">Reveal Board</button> -->
-
     <div class="winners-container"></div>
 
-    <footer>Omri Steinerg &copy; Cofeerights</footer>
+    <footer>Omri Steinberg &copy; Coffeerights</footer>
 
     <script src="js/utils.js"></script>
     <script src="js/addOns.js"></script>

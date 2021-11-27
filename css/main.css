@@ -4,6 +4,7 @@ body {
     background-color: rgb(255, 248, 238);
 }
 
+
 .level-opts-bar {
     width: 400px;
     height: 40px;
@@ -14,11 +15,13 @@ body {
     line-height: 40px;
 }
 
+
 .level-opts-bar span {
     display: inline-block;
     margin: auto 30px;
     cursor: pointer;
 }
+
 
 .info-bar {
     width: 400px;
@@ -32,6 +35,7 @@ body {
     vertical-align: middle;
 }
 
+
 .info-bar span {
     display: inline-block;
     /* margin: -5px 30px;
@@ -39,10 +43,12 @@ body {
     margin-right: 30px;
 }
 
+
 .life {
     width: 100px;
     height: 20px;
 }
+
 
 .status-smiley {
     cursor: pointer;
@@ -52,36 +58,65 @@ table {
     width: 400px;
     height: 400px;
     margin: auto;
-    background-color: aquamarine;
     cursor: pointer;
 }
-
-/* .mine {
-    background-color: blue;
-    width: 40px;
-    height: 40px;
-} */
 
 .cell {
     width: 25px;
     height: 25px;
-    /* height: auto; */
     background-color: burlywood;
-    /* border: 1px solid black; */
-}
-
-.cell img {
-    width: 25px;
-    height: auto;
+    border-radius: 5px;
+    border: 0.5px solid black;
 }
 
 .hidden {
     background-color: rgb(52, 99, 52);
-    /* background-color: brown; */
+}
+
+.hidden:hover {
+    background-color: rgba(52, 99, 52, 0.795);
 }
 
 .marked {
-    background-color: rgb(34, 136, 148);
+    background-color: rgb(31, 56, 31);
+}
+
+.marked:hover {
+    background-color: rgba(31, 56, 31, 0.938);
+}
+
+.lower-info-line {
+    width: 400px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: burlywood;
+    margin: 10px auto 10px;
+    font-size: larger;
+    line-height: 40px;
+}
+
+.lower-info-line span {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.hints {
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: burlywood;
+    font-size: larger;
+    line-height: 40px;
+    cursor: grab;
+}
+
+.safe-click {
+    cursor: pointer;
+}
+
+.safe {
+    background-color: rgb(204, 255, 122);
 }
 
 .score {
@@ -96,6 +131,7 @@ table {
     display: none;
 }
 
+
 .too-slow {
     width: 400px;
     height: 40px;
@@ -108,17 +144,6 @@ table {
     display: none;
 }
 
-.hints {
-    width: 400px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: burlywood;
-    margin: 10px auto 10px;
-    font-size: larger;
-    line-height: 40px;
-    cursor: grab;
-}
 
 .winners-container {
     width: 400px;

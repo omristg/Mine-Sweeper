@@ -44,8 +44,6 @@ function getRandomIntInclusive(min, max) {
 }
 
 
-
-
 function drawNum() {
     return gNums.pop()
 }
