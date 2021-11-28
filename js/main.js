@@ -51,6 +51,7 @@ function resetGame() {
     document.querySelector('.timer').innerText = '00:00';
     document.querySelector('.score').style.display = 'none';
     document.querySelector('.lower-info-line').style.display = 'block'
+    document.querySelector('.safe-click').innerText = `Safe clicks left: ${gGame.safeClicks}`
     var elWinnersContainer = document.querySelector('.winners-container')
     elWinnersContainer.style.visibility = 'hidden';
     init();
