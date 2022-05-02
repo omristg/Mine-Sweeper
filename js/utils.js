@@ -9,7 +9,7 @@ function getClassName(location) {
 function renderCell(location, value) {
     var cellSelector = `.${getClassName(location)}`;
     var elCell = document.querySelector(cellSelector);
-    if (!value)  elCell.innerHTML = '';
+    if (!value) elCell.innerHTML = '';
     else elCell.innerHTML = value;
 }
 
@@ -33,15 +33,11 @@ function renderCellsForHint(location) {
     var value;
     var cellSelector = `.${getClassName(location)}`;
     var elCell = document.querySelector(cellSelector);
-    
+
     var negs = countNegMines(gBoard, location.i, location.j)
     if (!negs) value = '';
     else if (gBoard[location.i][location.j].isMine) value = MINE
     else value = negs;
-    
+
     elCell.innerHTML = value;
 }
-
-
-// Prevent right mouse click
-document.querySelector('table').addEventListener('contextmenu', event => event.preventDefault());

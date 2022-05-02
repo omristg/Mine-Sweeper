@@ -119,12 +119,11 @@ function renderBoard(board) {
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>';
         for (var j = 0; j < board.length; j++) {
-            var currCell = board[i][j];
             var cellClass = getClassName({ i, j })
 
             strHTML += `<td class="cell ${cellClass} hidden" 
 			 onclick="cellClicked(this, ${i},${j})" 
-             oncontextmenu="cellMarked(this, ${i},${j})">`;
+             oncontextmenu="cellMarked(this, ${i},${j}, event)">`;
 
             strHTML += '</td>';
         }
@@ -175,12 +174,18 @@ function expandShown(rowIdx, colIdx) {
             if (i === rowIdx && j === colIdx) continue
             var currCell = gBoard[i][j];
             if (currCell.isMarked) continue;
+            if (currCell.isShown) continue;
 
             currCell.isShown = true;
             showHideCell({ i, j }, 'show');
             renderCell({ i, j }, currCell.minesAroundCount);
+            if (!currCell.minesAroundCount) {
+                expandShown(i, j)
+            }
         }
     }
+
+    // console.log(cleanPoss);
 }
 
 
@@ -249,10 +254,11 @@ function playerWins() {
 }
 
 
-function cellMarked(elCell, i, j) {
+function cellMarked(elCell, i, j, ev) {
+    ev.preventDefault()
     var cell = gBoard[i][j];
     if (cell.isShown) return;
-    
+
     if (!cell.isMarked) {
         if (!gLevel.FLAGS) return
         renderCell({ i, j }, FLAG);
